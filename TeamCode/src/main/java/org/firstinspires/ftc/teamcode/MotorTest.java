@@ -1,48 +1,52 @@
-//for copying purposes only
+/*
 
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="Tank", group="Linear Opmode")
+@TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
 
-public class DefaultTanktread extends LinearOpMode {
+public class MotorTest extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    DcMotor left, right;
+    private DcMotor testMotor;
 
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        left  = hardwareMap.get(DcMotor.class, "Left");
-        right = hardwareMap.get(DcMotor.class, "Right");
+        
+        testMotor = hardwareMap.get(DcMotorEx.class, "TestMotor");
 
-        left.setDirection(DcMotor.Direction.FORWARD);
-        right.setDirection(DcMotor.Direction.FORWARD);
-
+        
+        
+        
         waitForStart();
         runtime.reset();
 
         
         while (opModeIsActive()) {
 
-            double lY1, rY1;
             
-            lY1 = gamepad1.left_stick_y;
-            rY1 = gamepad1.right_stick_y;
-            
-            left.setPower(lY1);
-            right.setPower(rY1);
+            double rotation = gamepad1.left_stick_y;
+            testMotor.setPower(rotation);
 
+            
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
         }
     }
 }
+
+
+*/
+
+
