@@ -1,5 +1,3 @@
-/*
-
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -11,8 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
-
+@TeleOp(name="Motor Test", group="Linear Opmode")
 public class MotorTest extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -47,6 +44,5 @@ public class MotorTest extends LinearOpMode {
 }
 
 
-*/
 
 
