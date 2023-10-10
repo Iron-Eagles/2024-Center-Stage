@@ -1,6 +1,6 @@
 //for copying purposes only. Use this as a starter for any other code you may be working on.
-/*
-package org.firstinspires.ftc.teamcode.opmodes;
+
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.Range;
@@ -73,4 +73,4 @@ public class DefaultMecanum extends LinearOpMode {
         }
     }
 }
-*/
+
