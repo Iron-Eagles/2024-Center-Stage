@@ -4,24 +4,22 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 
-import java.util.List;
-
-@TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
+@TeleOp(name="Push Bot - PP 2024", group="Linear Opmode")
 
 public class DefaultMecanum extends LinearOpMode {
     
     DcMotor leftFront, rightFront, rightBack, leftBack;
     ElapsedTime runtime = new ElapsedTime();
-    
-      
+
+    double adjSpeedConstant = 0.4;
+    double realSpeed = 1;
+
+    boolean turboMode = false, reset = false;
+
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
@@ -36,7 +34,7 @@ public class DefaultMecanum extends LinearOpMode {
         leftFront.setDirection(DcMotor.Direction.FORWARD);
         rightFront.setDirection(DcMotor.Direction.REVERSE);
         rightBack.setDirection(DcMotor.Direction.REVERSE);
-        leftBack.setDirection(DcMotor.Direction.FORWARD);
+        leftBack.setDirection(DcMotor.Direction.REVERSE); //tell ELI To fix this motor gear
         
         
         waitForStart();
@@ -51,26 +49,44 @@ public class DefaultMecanum extends LinearOpMode {
             rX1 = gamepad1.right_stick_x;
             rY1 = gamepad1.right_stick_y;
             
-            double a = lY1 + lX1;
+            double a = lY1 - lX1;
             double b = rY1 - lX1;
-            double c = lY1 - lX1;
+            double c = lY1 + lX1;
             double d = rY1 + lX1;
             
             a = Range.clip(a, -1, 1);
             b = Range.clip(b, -1, 1);
             c = Range.clip(c, -1, 1);
             d = Range.clip(d, -1, 1);
-            
-            leftFront.setPower(a);
-            rightFront.setPower(b);
-            leftBack.setPower(c);
-            rightBack.setPower(d);
-            
-            
-            
+
+            if (gamepad1.a) {
+                Toggle(turboMode);
+            } else {
+                reset = true;
+            }
+
+            if (turboMode) {
+                realSpeed = 1;
+            } else {
+                realSpeed = adjSpeedConstant;
+            }
+
+            leftFront.setPower(a * adjSpeedConstant);
+            rightFront.setPower(b * adjSpeedConstant);
+            leftBack.setPower(c * adjSpeedConstant);
+            rightBack.setPower(d * adjSpeedConstant);
+
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
         }
+    }
+
+    boolean Toggle(boolean input) {
+        if (reset = false) {
+            reset = true;
+            return !input;
+        }
+        return input;
     }
 }
 
