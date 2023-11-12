@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name="Push Bot - PP 2024", group="Linear Opmode")
+@TeleOp(name="_Push Bot - PP 2024", group="Linear Opmode")
 
 public class DefaultMecanum extends LinearOpMode {
     
