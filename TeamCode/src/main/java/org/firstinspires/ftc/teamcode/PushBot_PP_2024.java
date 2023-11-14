@@ -23,9 +23,6 @@ public class PushBot_PP_2024 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
-
         leftFront = hardwareMap.get(DcMotor.class, "LeftFront");
         rightFront = hardwareMap.get(DcMotor.class, "RightFront");
         rightBack = hardwareMap.get(DcMotor.class, "RightBack");
@@ -35,6 +32,9 @@ public class PushBot_PP_2024 extends LinearOpMode {
         rightFront.setDirection(DcMotor.Direction.REVERSE);
         rightBack.setDirection(DcMotor.Direction.REVERSE);
         leftBack.setDirection(DcMotor.Direction.REVERSE); //tell ELI To fix this motor gear
+
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
 
         waitForStart();
         runtime.reset();
@@ -69,10 +69,10 @@ public class PushBot_PP_2024 extends LinearOpMode {
                 realSpeed = adjSpeedConstant;
             }
 
-            leftFront.setPower(a * adjSpeedConstant);
-            rightFront.setPower(b * adjSpeedConstant);
-            leftBack.setPower(c * adjSpeedConstant);
-            rightBack.setPower(d * adjSpeedConstant);
+            leftFront.setPower(a * realSpeed);
+            rightFront.setPower(b * realSpeed);
+            leftBack.setPower(c * realSpeed);
+            rightBack.setPower(d * realSpeed);
 
             telemetry.addData("Turbo", turboMode);
             telemetry.addData("Elapsed Time", runtime.seconds());
@@ -83,7 +83,6 @@ public class PushBot_PP_2024 extends LinearOpMode {
     boolean Toggle(boolean input) {
         if (reset == false) {
             reset = true;
-            attempted = true;
             return !input;
         } else {
             return input;
