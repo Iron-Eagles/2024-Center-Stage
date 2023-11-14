@@ -15,6 +15,8 @@ public class PushBot_PP_2024 extends LinearOpMode {
     DcMotor leftFront, rightFront, rightBack, leftBack;
     ElapsedTime runtime = new ElapsedTime();
 
+    boolean attempted = false;
+
     double adjSpeedConstant = 0.4;
     double realSpeed = 1;
     boolean turboMode = false, reset = false;
@@ -56,13 +58,13 @@ public class PushBot_PP_2024 extends LinearOpMode {
             d = Range.clip(d, -1, 1);
 
             if (gamepad1.a) {
-                Toggle(turboMode);
+                turboMode = Toggle(turboMode);
             } else {
-                reset = true;
+                reset = false;
             }
 
             if (turboMode) {
-                realSpeed = 1;
+                realSpeed = 0.6;
             } else {
                 realSpeed = adjSpeedConstant;
             }
@@ -72,17 +74,21 @@ public class PushBot_PP_2024 extends LinearOpMode {
             leftBack.setPower(c * adjSpeedConstant);
             rightBack.setPower(d * adjSpeedConstant);
 
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.addData("Turbo", turboMode);
+            telemetry.addData("Elapsed Time", runtime.seconds());
             telemetry.update();
         }
     }
 
     boolean Toggle(boolean input) {
-        if (reset = false) {
+        if (reset == false) {
             reset = true;
+            attempted = true;
             return !input;
+        } else {
+            return input;
+
         }
-        return input;
     }
 }
 
