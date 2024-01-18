@@ -17,7 +17,12 @@ public class PushBot_PP_2024 extends LinearOpMode {
 
     boolean attempted = false;
 
-    double adjSpeedConstant = 0.4;
+
+
+    double normalSpeed = 0.5;
+    double turboSpeed = 0.625;
+    double precisionSpeed = 0.375;
+
     double realSpeed = 1;
     boolean turboMode = false, reset = false;
 
@@ -57,16 +62,12 @@ public class PushBot_PP_2024 extends LinearOpMode {
             c = Range.clip(c, -1, 1);
             d = Range.clip(d, -1, 1);
 
-            if (gamepad1.a) {
-                turboMode = Toggle(turboMode);
+            if (gamepad1.right_bumper) {
+                realSpeed = turboSpeed;
+            } else if (gamepad1.left_bumper) {
+                realSpeed = precisionSpeed;
             } else {
-                reset = false;
-            }
-
-            if (turboMode) {
-                realSpeed = 0.6;
-            } else {
-                realSpeed = adjSpeedConstant;
+                realSpeed = normalSpeed;
             }
 
             leftFront.setPower(a * realSpeed);
@@ -79,7 +80,7 @@ public class PushBot_PP_2024 extends LinearOpMode {
             telemetry.update();
         }
     }
-
+    /*
     boolean Toggle(boolean input) {
         if (reset == false) {
             reset = true;
@@ -88,6 +89,9 @@ public class PushBot_PP_2024 extends LinearOpMode {
             return input;
 
         }
+
     }
+
+     */
 }
 
