@@ -3,25 +3,27 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name="_Push Bot - PP 2024", group="Linear Opmode")
+@TeleOp(name="_Push Bot - CS 2024", group="Linear Opmode")
 
 public class PushBot_PP_2024 extends LinearOpMode {
     
     DcMotor leftFront, rightFront, rightBack, leftBack;
+    //servo example
+    Servo leftClaw, rightClaw;
     ElapsedTime runtime = new ElapsedTime();
 
     boolean attempted = false;
 
 
-
     double normalSpeed = 0.5;
-    double turboSpeed = 0.625;
-    double precisionSpeed = 0.375;
+    double turboSpeed = 1.0;
+    double precisionSpeed = 0.25;
 
     double realSpeed = 1;
     boolean turboMode = false, reset = false;
@@ -32,6 +34,10 @@ public class PushBot_PP_2024 extends LinearOpMode {
         rightFront = hardwareMap.get(DcMotor.class, "RightFront");
         rightBack = hardwareMap.get(DcMotor.class, "RightBack");
         leftBack = hardwareMap.get(DcMotor.class, "LeftBack");
+
+        //leftClaw = hardwareMap.get(Servo.class, "LeftyClaw");
+        //rightClaw = hardwareMap.get(Servo.class, "RightyClaw");
+
 
         leftFront.setDirection(DcMotor.Direction.FORWARD);
         rightFront.setDirection(DcMotor.Direction.REVERSE);
@@ -78,6 +84,16 @@ public class PushBot_PP_2024 extends LinearOpMode {
             telemetry.addData("Turbo", turboMode);
             telemetry.addData("Elapsed Time", runtime.seconds());
             telemetry.update();
+
+
+            if (gamepad1.a) {
+                //leftClaw.setPosition(0.25);
+                //rightClaw.setPosition(0.75);
+            }
+            if (gamepad1.b) {
+                //leftClaw.setPosition(0.5);
+                //rightClaw.setPosition(0.5);
+            }
         }
     }
     /*
