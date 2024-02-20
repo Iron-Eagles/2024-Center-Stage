@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name="_Push Bot - CS 2024", group="Linear Opmode")
 
-public class PushBot_PP_2024 extends LinearOpMode {
+public class PushBot_CS_2024 extends LinearOpMode {
     
     DcMotor leftFront, rightFront, rightBack, leftBack;
     //servo example
