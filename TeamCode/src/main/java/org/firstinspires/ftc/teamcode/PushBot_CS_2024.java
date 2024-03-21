@@ -52,16 +52,16 @@ public class PushBot_CS_2024 extends LinearOpMode {
         
         while (opModeIsActive()) {
             
-            double lX1, lY1, rY1;
+            double lx, ly, rx;
             
-            lX1 = gamepad1.left_stick_x;
-            lY1 = gamepad1.left_stick_y;
-            rY1 = gamepad1.right_stick_y;
+            lx = gamepad1.left_stick_x;
+            ly = gamepad1.left_stick_y;
+            rx = gamepad1.right_stick_x;
             
-            double a = lY1 - lX1;
-            double b = rY1 - lX1;
-            double c = lY1 + lX1;
-            double d = rY1 + lX1;
+            double a = ly - rx - lx;
+            double b = ly + rx - lx;
+            double c = ly + rx + lx;
+            double d = ly - rx + lx;
 
             a = Range.clip(a, -1, 1);
             b = Range.clip(b, -1, 1);
@@ -78,8 +78,8 @@ public class PushBot_CS_2024 extends LinearOpMode {
 
             leftFront.setPower(a * realSpeed);
             rightFront.setPower(b * realSpeed);
-            leftBack.setPower(c * realSpeed);
-            rightBack.setPower(d * realSpeed);
+            rightBack.setPower(c * realSpeed);
+            leftBack.setPower(d * realSpeed);
 
             telemetry.addData("Turbo", turboMode);
             telemetry.addData("Elapsed Time", runtime.seconds());
