@@ -3,6 +3,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -12,57 +13,66 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name="_Push Bot - CS 2024", group="Linear Opmode")
 
 public class PushBot_CS_2024 extends LinearOpMode {
-    
-    DcMotor leftFront, rightFront, rightBack, leftBack;
+
+    DcMotor rightBack, leftBack, rightFront, leftFront;
     //servo example
     Servo leftClaw, rightClaw;
     ElapsedTime runtime = new ElapsedTime();
 
+
+    //The speeds were originally nor:0.5  turbo:1   pre:0.25
     boolean attempted = false;
-
-
+    //swear count, very temp.
+    int swearCount = 57;
     double normalSpeed = 0.5;
-    double turboSpeed = 1.0;
+    //every time Eli swears, I will reduce this speed by 0.01, current 0.18
+    double turboSpeed = 1;
     double precisionSpeed = 0.25;
 
-    double realSpeed = 1;
+    double realSpeed = 0.5;
     boolean turboMode = false, reset = false;
 
     @Override
     public void runOpMode() {
-        leftFront = hardwareMap.get(DcMotor.class, "LeftFront");
-        rightFront = hardwareMap.get(DcMotor.class, "RightFront");
-        rightBack = hardwareMap.get(DcMotor.class, "RightBack");
-        leftBack = hardwareMap.get(DcMotor.class, "LeftBack");
+        leftFront = hardwareMap.get(DcMotor.class, "leftFront");
+        rightFront = hardwareMap.get(DcMotor.class, "rightFront");
+        rightBack = hardwareMap.get(DcMotor.class, "rightBack");
+        leftBack = hardwareMap.get(DcMotor.class, "leftBack");
 
         //leftClaw = hardwareMap.get(Servo.class, "LeftyClaw");
         //rightClaw = hardwareMap.get(Servo.class, "RightyClaw");
 
 
-        leftFront.setDirection(DcMotor.Direction.FORWARD);
+        leftFront.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.REVERSE);
-        rightBack.setDirection(DcMotor.Direction.REVERSE);
-        leftBack.setDirection(DcMotor.Direction.REVERSE); //tell ELI To fix this motor gear
+        rightBack.setDirection(DcMotor.Direction.FORWARD);
+        leftBack.setDirection(DcMotor.Direction.FORWARD); //tell ELI To fix this motor gear + tell ELI To fix this wheel
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
+        int temp = 0;
+
         waitForStart();
         runtime.reset();
-        
+
         while (opModeIsActive()) {
-            
-            double lx, ly, rx;
-            
+
+            double lx, ly, ry;
+
             lx = gamepad1.left_stick_x;
             ly = gamepad1.left_stick_y;
-            rx = gamepad1.right_stick_x;
-            
-            double a = ly - rx - lx;
-            double b = ly + rx - lx;
-            double c = ly + rx + lx;
-            double d = ly - rx + lx;
+            ry = gamepad1.right_stick_y;
 
+            //double a = ly - ry - lx;
+            //double b = ly + ry - lx;
+            //double c = ly - ry + lx;
+            //double d = ly + ry + lx;
+
+            double a = ly - lx;
+            double b = ry + lx;
+            double c = ry - lx;
+            double d = ly + lx;
             a = Range.clip(a, -1, 1);
             b = Range.clip(b, -1, 1);
             c = Range.clip(c, -1, 1);
@@ -80,19 +90,28 @@ public class PushBot_CS_2024 extends LinearOpMode {
             rightFront.setPower(b * realSpeed);
             rightBack.setPower(c * realSpeed);
             leftBack.setPower(d * realSpeed);
-
+            /*
+            if (temp > 0) {
+                temp = temp - 1;
+                leftFront.setPower(realSpeed);
+                rightFront.setPower(realSpeed);
+                rightBack.setPower(realSpeed);
+                leftBack.setPower(realSpeed);
+            }
+            */
             telemetry.addData("Turbo", turboMode);
             telemetry.addData("Elapsed Time", runtime.seconds());
             telemetry.update();
 
-
+            /*
             if (gamepad1.a) {
-                //leftClaw.setPosition(0.25);
-                //rightClaw.setPosition(0.75);
+                temp = 200;
             }
-            if (gamepad1.b) {
+            */
+            //if (gamepad1.b) {
                 //leftClaw.setPosition(0.5);
                 //rightClaw.setPosition(0.5);
+                //It will be more like myservo.write(dir)
             }
         }
     }
@@ -103,11 +122,8 @@ public class PushBot_CS_2024 extends LinearOpMode {
             return !input;
         } else {
             return input;
-
         }
 
     }
 
-     */
-}
-
+   */
