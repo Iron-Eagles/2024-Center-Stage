@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class PushBot_CS_2024 extends LinearOpMode {
 
-    DcMotor rightBack, leftBack, rightFront, leftFront;
+    DcMotor rightBack, leftBack, rightFront, leftFront, armLift;
     //servo example
     Servo leftClaw, rightClaw;
     ElapsedTime runtime = new ElapsedTime();
@@ -38,9 +38,8 @@ public class PushBot_CS_2024 extends LinearOpMode {
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
         leftBack = hardwareMap.get(DcMotor.class, "leftBack");
-
-        //leftClaw = hardwareMap.get(Servo.class, "LeftyClaw");
-        //rightClaw = hardwareMap.get(Servo.class, "RightyClaw");
+        armLift = hardwareMap.get(DcMotor.class, "armLift");
+        Claw = hardwareMap.get(Servo.class, "Claw");
 
 
         leftFront.setDirection(DcMotor.Direction.REVERSE);
@@ -52,6 +51,8 @@ public class PushBot_CS_2024 extends LinearOpMode {
         telemetry.update();
 
         int temp = 0;
+
+        claw.setPosition(0);
 
         waitForStart();
         runtime.reset();
