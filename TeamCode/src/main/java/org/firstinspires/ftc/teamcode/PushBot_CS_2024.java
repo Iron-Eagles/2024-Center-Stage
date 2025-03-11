@@ -16,7 +16,7 @@ public class PushBot_CS_2024 extends LinearOpMode {
 
     DcMotor rightBack, leftBack, rightFront, leftFront, armLift;
     //servo example
-    Servo leftClaw, rightClaw;
+    Servo Claw;
     ElapsedTime runtime = new ElapsedTime();
 
 
@@ -31,6 +31,10 @@ public class PushBot_CS_2024 extends LinearOpMode {
 
     double realSpeed = 0.5;
     boolean turboMode = false, reset = false;
+    int clawangle = 0;
+    int [] minmax = {0,140};
+    int armrate = 5;
+    int clawrate = 5;
 
     @Override
     public void runOpMode() {
@@ -52,13 +56,13 @@ public class PushBot_CS_2024 extends LinearOpMode {
 
         int temp = 0;
 
-        claw.setPosition(0);
+        claw.setPosition(0.6);
 
         waitForStart();
         runtime.reset();
 
         while (opModeIsActive()) {
-
+            
             double lx, ly, ry;
 
             lx = gamepad1.left_stick_x;
@@ -85,6 +89,25 @@ public class PushBot_CS_2024 extends LinearOpMode {
                 realSpeed = precisionSpeed;
             } else {
                 realSpeed = normalSpeed;
+            }
+
+            if (gamepad1.a) {
+                Claw.setPosition(0.6);
+            }
+            if (gamepad1.b) {
+                Claw.setPosition(0.4);
+            }
+
+            if (gamepad1.dpad_down){
+                armLift.setTargetPosition(100);
+                armLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                armLift.setPower(0.5);
+            }
+
+            if (gamepad1.dpad_up){
+                armLift.setTargetPosition(120);
+                armLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                armLift.setPower(0.5);
             }
 
             leftFront.setPower(a * realSpeed);
